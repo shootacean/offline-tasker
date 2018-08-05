@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+
+    <link rel="stylesheet" href="dist/app.css">
+
+    <title>Offline Tasker</title>
+</head>
+<body>
+<header>
+    <script>FontAwesomeConfig = {searchPseudoElements: true};</script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="dist/bundle.js"></script>
+</header>
+<div id="hero">
+    <h1 class="title">Offline Tasker</h1>
+</div>
+<div class="uk-container" id="app">
+    <div class="uk-container uk-container-large">
+        <div class="uk-grid uk-grid-divider">
+            <div>
+                <div>
+                    <input type="text" class="uk-input uk-form-width-large" placeholder="New task"
+                           v-model="newTask.title"
+                           v-on:change="addNewTask"
+                    >
+                </div>
+                <div class="uk-panel uk-panel-scrollable uk-height-1-1">
+                    <table class="uk-table uk-table-divider uk-table-small uk-table-hover uk-table-justify">
+                        <tbody>
+                        <tr class="uk-table-shrink"
+                            v-for="(task, key) in tasks"
+                            :key="task.id"
+                            v-bind:class="{ 'is-selected': (key === selectedTaskId) }"
+                            v-on:click="selectTask(key)"
+                        >
+                            <td class="uk-table-shrink">
+                                <i class="fas fa-sort"></i>
+                            </td>
+                            <td class="uk-table-shrink">
+                                <input type="checkbox" class="uk-checkbox">
+                            </td>
+                            <td class="uk-table-shrink">{{ key + 1 }}</td>
+                            <td class="uk-table-expand">{{ task.title }}</td>
+                            <td class="uk-table-shrink">
+                                <i class="fas fa-trash-alt"
+                                   v-on:click="removeTask(key)">
+                                </i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h3 class="uk-heading-bullet">Detail</h3>
+                <div class="uk-form-stacked" v-for="(task, key) in tasks" v-if="key === selectedTaskId">
+                    <div>
+                        <label class="uk-form-label">Title</label>
+                        <div class="uk-form-controls">
+                            <input type="text" class="uk-input" v-model="task.title">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="uk-form-label">Due date</label>
+                        <div class="uk-form-controls">
+                            <input type="date" class="uk-input" v-model="task.dueDate">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="uk-form-label">Note</label>
+                        <div class="uk-form-controls">
+                            <textarea class="uk-textarea" v-model="task.note"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./src/app.js"></script>
+</body>
+</html>
