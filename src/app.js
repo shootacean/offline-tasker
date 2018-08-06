@@ -25,7 +25,9 @@ window.onload = function () {
                 this.tasks.unshift({
                     id: this.nextTaskId++,
                     title: this.newTask.title,
-                    dueDate: Date.now(),
+                    done: false,
+                    dueDate: Date.now().toLocaleString(),
+                    pomoEstimate: 0,
                     note: '',
                 });
                 this.newTask.title = '';
